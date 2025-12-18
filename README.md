@@ -1,75 +1,55 @@
-# React + TypeScript + Vite
+## 占いサイト 概要
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+このプロジェクトは、**名前と生年月日から運勢を占うシングルページの占いサイト**です。  
+スマートフォンでの利用を中心にデザインされており、「今日・明日・今年・来年」の運勢を切り替えながら確認できます。
 
-Currently, two official plugins are available:
+### 用途
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **個人の運勢チェック**
+  - 名前と生年月日を入力すると、星座・数秘・名前エネルギーを組み合わせた結果が表示されます。
+- **デモ・ポートフォリオ**
+  - React + TypeScript + Vite を使った、モダンな UI/UX のサンプルとして利用できます。
+- **占いサービスのプロトタイプ**
+  - 本格的な占いサービスを構想する際の、UI やロジックのたたき台として利用できます。
 
-## React Compiler
+### 機能概要
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 名前入力、日本語表記の生年月日選択（西暦・月・日セレクト）
+- 占う期間の切り替え
+  - 今日 / 明日 / 今年 / 来年
+- 占いロジック
+  - 生年月日から西洋 12 星座を算出
+  - 生年月日から数秘術のライフパスナンバー（1〜9）を算出
+  - 名前の文字情報から「名前エネルギー番号」（1〜9）を算出
+  - これらを組み合わせて、ベテラン占い師風の日本語メッセージを生成
+- スマホファーストデザイン
+  - ダークトーン + グラデーション背景
+  - カード型レイアウトとピル型トグルボタン
 
-## Expanding the ESLint configuration
+### 技術構成
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **フロントエンド**
+  - React 18
+  - TypeScript
+  - Vite
+- **スタイリング**
+  - プレーン CSS (`src/App.css`)
+  - スマホファーストのレイアウトとレスポンシブ対応
+- **ビルド・開発**
+  - `npm run dev` : 開発サーバー起動
+  - `npm run build` : 本番ビルド
+  - `npm run preview` : ビルド後のプレビュー
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### セットアップ手順
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+ブラウザで表示された URL（通常は `http://localhost:5173`）にアクセスすると、占いサイトが表示されます。
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 注意事項
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-"# -"  
-"# -"  
+- このアプリは、星座・数秘術・名前文字情報などのルールにもとづいた**エンターテインメント向けの占い**です。
+- 医学的・法律的な診断や保証を行うものではありません。
