@@ -3,7 +3,7 @@ import './App.css'
 
 type Period = 'today' | 'tomorrow' | 'thisYear' | 'nextYear'
 
-type FortuneLevel = '最高' | '吉' | '中吉' | '小吉' | '凶'
+type FortuneLevel = '大吉' | '吉' | '中吉' | '小吉' | '凶'
 
 type Fortune = {
   level: FortuneLevel
@@ -252,7 +252,7 @@ const createSeedFromInput = (
 
 const fortuneTable: Fortune[] = [
   {
-    level: '最高',
+    level: '大吉',
     keyword: 'はじまり',
     color: '#f97373',
     message: '新しいことを始めるのにぴったりな一日。小さな一歩が、思わぬチャンスにつながりそう。',
@@ -322,7 +322,7 @@ const pickFortune = (
 
   let adjustedLevel = base.level
   if (isEarlyYear) {
-    if (adjustedLevel === '最高') {
+    if (adjustedLevel === '大吉') {
       adjustedLevel = '中吉'
     } else if (adjustedLevel === '吉') {
       adjustedLevel = '小吉'
