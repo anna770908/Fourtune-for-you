@@ -33,7 +33,7 @@
   - TypeScript
   - Vite
 - **スタイリング**
-  - プレーン CSS (`src/App.css`)
+  - TailwindCSS
   - スマホファーストのレイアウトとレスポンシブ対応
 
 ### 注意事項
