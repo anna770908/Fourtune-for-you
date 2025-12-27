@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import './App.css'
 
 type Period = 'today' | 'tomorrow' | 'thisYear' | 'nextYear'
@@ -357,12 +357,74 @@ const pickFortune = (
 }
 
 function App() {
-  const [name, setName] = useState('')
-  const [birthYear, setBirthYear] = useState('')
-  const [birthMonth, setBirthMonth] = useState('')
-  const [birthDay, setBirthDay] = useState('')
-  const [period, setPeriod] = useState<Period>('today')
-  const [touched, setTouched] = useState(false)
+  // localStorageから初期値を復元（初回マウント時のみ）
+  const [name, setName] = useState(() => {
+    const saved = localStorage.getItem('fortune-name')
+    return saved ?? ''
+  })
+  const [birthYear, setBirthYear] = useState(() => {
+    const saved = localStorage.getItem('fortune-birthYear')
+    return saved ?? ''
+  })
+  const [birthMonth, setBirthMonth] = useState(() => {
+    const saved = localStorage.getItem('fortune-birthMonth')
+    return saved ?? ''
+  })
+  const [birthDay, setBirthDay] = useState(() => {
+    const saved = localStorage.getItem('fortune-birthDay')
+    return saved ?? ''
+  })
+  const [period, setPeriod] = useState<Period>(() => {
+    const saved = localStorage.getItem('fortune-period') as Period | null
+    return saved && ['today', 'tomorrow', 'thisYear', 'nextYear'].includes(saved)
+      ? saved
+      : 'today'
+  })
+  const [touched, setTouched] = useState(() => {
+    const saved = localStorage.getItem('fortune-touched')
+    return saved === 'true'
+  })
+
+  // 値が変更されたときにlocalStorageに保存
+  useEffect(() => {
+    if (name) {
+      localStorage.setItem('fortune-name', name)
+    } else {
+      localStorage.removeItem('fortune-name')
+    }
+  }, [name])
+
+  useEffect(() => {
+    if (birthYear) {
+      localStorage.setItem('fortune-birthYear', birthYear)
+    } else {
+      localStorage.removeItem('fortune-birthYear')
+    }
+  }, [birthYear])
+
+  useEffect(() => {
+    if (birthMonth) {
+      localStorage.setItem('fortune-birthMonth', birthMonth)
+    } else {
+      localStorage.removeItem('fortune-birthMonth')
+    }
+  }, [birthMonth])
+
+  useEffect(() => {
+    if (birthDay) {
+      localStorage.setItem('fortune-birthDay', birthDay)
+    } else {
+      localStorage.removeItem('fortune-birthDay')
+    }
+  }, [birthDay])
+
+  useEffect(() => {
+    localStorage.setItem('fortune-period', period)
+  }, [period])
+
+  useEffect(() => {
+    localStorage.setItem('fortune-touched', String(touched))
+  }, [touched])
 
   const birthday = useMemo(() => {
     if (!birthYear || !birthMonth || !birthDay) return ''
